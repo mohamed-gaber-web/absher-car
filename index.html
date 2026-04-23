@@ -470,7 +470,7 @@
 
     .stats-row {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
       margin-top: 2.5rem;
       padding-top: 2rem;
@@ -633,7 +633,7 @@
       .about-img  { order: -1; }
       .about-badge { width: 90px; height: 90px; bottom: -12px; right: -12px; }
       .about-badge .big { font-size: 1.4rem; }
-      .stats-row { grid-template-columns: repeat(3, 1fr); }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
       .stat-num  { font-size: 1.8rem; }
 
       /* Contact */
@@ -656,7 +656,7 @@
       .service-card p { font-size: .84rem; }
       .svc-icon-wrap  { width: 60px; height: 60px; font-size: 1.5rem; }
 
-      .stats-row { grid-template-columns: repeat(3, 1fr); gap: .75rem; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); gap: .75rem; }
       .stat-num  { font-size: 1.6rem; }
       .stat-label{ font-size: .78rem; }
 
@@ -867,6 +867,12 @@
               <div class="stat-num"><span class="counter" data-target="4">0</span><span>+</span></div>
               <div class="stat-label">برامج تدريبية</div>
             </div>
+            <div class="stat-item">
+              <div class="stat-num" style="color:var(--amber)">
+                <span id="visitorCount">100,000</span>
+              </div>
+              <div class="stat-label">زائر ومتدرب</div>
+            </div>
           </div>
         </div>
 
@@ -876,7 +882,7 @@
             <i class="fas fa-car-side"></i>
           </div>
           <div class="about-badge">
-            <span class="big">20+</span>
+            <span class="big">٢٠+</span>
             <span class="sm">سنوات<br>خبرة</span>
           </div>
         </div>
@@ -943,7 +949,7 @@
             <div class="contact-icon" style="background:var(--blue)"><i class="fas fa-phone-alt"></i></div>
             <div>
               <h4>الهاتف</h4>
-              <p>01080661711 &nbsp;|&nbsp; 01150112981</p>
+              <p>٠١٠٨٠٦٦١٧١١ &nbsp;|&nbsp; ٠١١٥٠١١٢٩٨١</p>
             </div>
           </div>
           <div class="contact-card">
@@ -997,7 +1003,7 @@
            onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 40px rgba(0,0,0,.3)'"
            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 32px rgba(0,0,0,.2)'">
           <i class="fab fa-whatsapp" style="font-size:1.4rem;color:#25D366;"></i>
-          01080661711
+          ٠١٠٨٠٦٦١٧١١
         </a>
       </div>
     </div>
@@ -1023,7 +1029,7 @@
         </nav>
       </div>
       <div class="footer-bottom">
-        &copy; 2025 أبشر لتعليم القيادة &mdash; جميع الحقوق محفوظة
+        &copy; ٢٠٢٥ أبشر لتعليم القيادة &mdash; جميع الحقوق محفوظة
       </div>
     </div>
   </footer>
@@ -1087,6 +1093,14 @@
       particlesEl.appendChild(p);
     }
 
+    /* ===== ARABIC DIGITS HELPER ===== */
+    function toAr(n) {
+      return String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+    }
+    function toArFmt(n) {
+      return n.toLocaleString('ar-EG');
+    }
+
     /* ===== COUNTER ANIMATION ===== */
     function animateCounter(el) {
       const target = parseInt(el.dataset.target, 10);
@@ -1096,10 +1110,10 @@
       const timer = setInterval(() => {
         current += step;
         if (current >= target) {
-          el.textContent = target;
+          el.textContent = toAr(target);
           clearInterval(timer);
         } else {
-          el.textContent = Math.floor(current);
+          el.textContent = toAr(Math.floor(current));
         }
       }, 16);
     }
@@ -1115,6 +1129,55 @@
     }, { threshold: 0.5 });
 
     counters.forEach(c => counterObserver.observe(c));
+
+    /* ===== VISITOR COUNTER ===== */
+    (function() {
+      const BASE     = 127854;   // starting floor
+      const STORAGE  = 'absher_visitors';
+      const el       = document.getElementById('visitorCount');
+      if (!el) return;
+
+      // Load or init stored count
+      let stored = parseInt(localStorage.getItem(STORAGE), 10);
+      if (!stored || stored < BASE) stored = BASE;
+
+      // Increment by random 1–3 each visit
+      stored += Math.floor(Math.random() * 3) + 1;
+      localStorage.setItem(STORAGE, stored);
+
+      function fmt(n) { return toArFmt(n); }
+
+      // Animate count-up to stored value
+      const target = stored;
+      const displayStart = Math.max(BASE, target - 60);
+      let current = displayStart;
+      const step = Math.ceil((target - current) / 40);
+
+      const visitorObs = new IntersectionObserver((entries) => {
+        if (!entries[0].isIntersecting) return;
+        visitorObs.disconnect();
+        el.textContent = fmt(current);
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            current = target;
+            el.textContent = fmt(current);
+            clearInterval(timer);
+          } else {
+            el.textContent = fmt(current);
+          }
+        }, 30);
+      }, { threshold: 0.5 });
+
+      visitorObs.observe(el);
+
+      // Slowly tick up +1 every 8 seconds while page is open
+      setInterval(() => {
+        stored++;
+        localStorage.setItem(STORAGE, stored);
+        el.textContent = fmt(stored);
+      }, 8000);
+    })();
   </script>
 </body>
 </html>
