@@ -320,6 +320,14 @@
       animation: roadMove 1.2s linear infinite;
     }
     @keyframes roadMove { to { right: 220px; } }
+    @keyframes glowPulse {
+      0%,100% { transform: scale(1); opacity: .7; }
+      50%      { transform: scale(1.15); opacity: 1; }
+    }
+    @keyframes boltFlash {
+      0%   { opacity: .5; transform: scale(.95); }
+      100% { opacity: 1;  transform: scale(1.15); }
+    }
 
     /* Scroll arrow */
     .scroll-arrow {
@@ -820,6 +828,62 @@
           <p>برامج تدريب عملي على الإسعافات الأولية والتعامل مع الإصابات والحالات الحرجة.</p>
           <a href="#contact" class="btn-outline">اعرف أكثر</a>
         </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ELECTRIC TEASER ===== -->
+  <section id="electric" style="padding:80px 0;background:linear-gradient(135deg,#0a0a0a 0%,#0d1f0d 40%,#0a2010 100%);position:relative;overflow:hidden;">
+
+    <!-- animated glow circles -->
+    <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(57,255,20,.07) 0%,transparent 70%);top:-100px;right:-100px;pointer-events:none;animation:glowPulse 4s ease-in-out infinite;"></div>
+    <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(57,255,20,.06) 0%,transparent 70%);bottom:-80px;left:-80px;pointer-events:none;animation:glowPulse 4s ease-in-out infinite .8s;"></div>
+
+    <div class="container" style="position:relative;z-index:2;">
+      <div style="text-align:center;" data-aos="zoom-in">
+
+        <!-- surprise badge -->
+        <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(57,255,20,.12);border:1px solid rgba(57,255,20,.35);color:#39ff14;padding:.35rem 1.2rem;border-radius:50px;font-size:.82rem;font-weight:700;letter-spacing:.06em;margin-bottom:1.5rem;">
+          <i class="fas fa-bolt" style="animation:boltFlash .8s ease-in-out infinite alternate;"></i>
+          المفاجأة التي انتظرتموها
+        </div>
+
+        <!-- main heading -->
+        <h2 style="color:#fff;font-size:clamp(1.7rem,4.5vw,3rem);font-weight:900;line-height:1.25;margin-bottom:1rem;">
+          مستقبل التدريب يبدأ <span style="color:#39ff14;text-shadow:0 0 20px rgba(57,255,20,.6);">هنا</span>
+        </h2>
+
+        <!-- sub text -->
+        <p style="color:rgba(255,255,255,.75);font-size:clamp(.95rem,2vw,1.15rem);max-width:640px;margin:0 auto 2rem;line-height:1.9;font-weight:500;">
+          أبشر للتدريب تُقدّم لكم أولى مبادراتها في
+          <strong style="color:#39ff14;">تدريب قيادة السيارات الكهربائية الحديثة</strong>
+          — خطوة نحو مستقبل أنظف وأذكى في جمهورية مصر العربية.
+        </p>
+
+        <!-- feature pills -->
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem;margin-bottom:2.5rem;">
+          <span style="background:rgba(57,255,20,.1);border:1px solid rgba(57,255,20,.25);color:rgba(255,255,255,.85);padding:.45rem 1.1rem;border-radius:50px;font-size:.88rem;font-weight:600;">
+            <i class="fas fa-charging-station" style="color:#39ff14;margin-left:.4rem;"></i>سيارات كهربائية حديثة
+          </span>
+          <span style="background:rgba(57,255,20,.1);border:1px solid rgba(57,255,20,.25);color:rgba(255,255,255,.85);padding:.45rem 1.1rem;border-radius:50px;font-size:.88rem;font-weight:600;">
+            <i class="fas fa-leaf" style="color:#39ff14;margin-left:.4rem;"></i>صديقة للبيئة
+          </span>
+          <span style="background:rgba(57,255,20,.1);border:1px solid rgba(57,255,20,.25);color:rgba(255,255,255,.85);padding:.45rem 1.1rem;border-radius:50px;font-size:.88rem;font-weight:600;">
+            <i class="fas fa-flag" style="color:#39ff14;margin-left:.4rem;"></i>الأولى في مصر
+          </span>
+          <span style="background:rgba(57,255,20,.1);border:1px solid rgba(57,255,20,.25);color:rgba(255,255,255,.85);padding:.45rem 1.1rem;border-radius:50px;font-size:.88rem;font-weight:600;">
+            <i class="fas fa-certificate" style="color:#39ff14;margin-left:.4rem;"></i>شهادات معتمدة
+          </span>
+        </div>
+
+        <!-- CTA -->
+        <a href="#contact" style="display:inline-flex;align-items:center;gap:.6rem;background:#39ff14;color:#0a2010;padding:.9rem 2.4rem;border-radius:50px;font-size:1rem;font-weight:800;text-decoration:none;box-shadow:0 0 32px rgba(57,255,20,.4);transition:transform .3s,box-shadow .3s;"
+           onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 48px rgba(57,255,20,.65)'"
+           onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 0 32px rgba(57,255,20,.4)'">
+          <i class="fas fa-bolt"></i>
+          سجّل اهتمامك الآن
+        </a>
 
       </div>
     </div>
